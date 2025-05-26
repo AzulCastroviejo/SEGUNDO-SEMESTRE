@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
 public class TP9 {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        
+        MySQLConnection bd = new MySQLConnection();
+        bd.conectar();
         Modelo mod = new Modelo();
         VistaMenu menu = new VistaMenu();
         Controlador ctrl = new Controlador(menu,mod);

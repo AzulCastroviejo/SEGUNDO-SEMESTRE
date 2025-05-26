@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.sql.*;
 
 /**
  *
@@ -70,9 +71,9 @@ public class Controlador implements ActionListener{
  
                }
     public void guardarDato() throws FileNotFoundException, IOException{
+        // settteamos los datos al modelo 
         model.setNombre(vista.RecepcionNombre.getText());
-       
-        if(vista.jRadioButton1.isSelected()){
+         if(vista.jRadioButton1.isSelected()){
             model.setCarrera("Programacion");
        }
         if(vista.jRadioButton2.isSelected()){
@@ -80,16 +81,40 @@ public class Controlador implements ActionListener{
        }
         if(vista.jRadioButton3.isSelected()){
            model.setCarrera("Analisis");}
-        ArrayList agregar = new ArrayList();
-        agregar.add(model);
+        // creamos la query para insertar en la base de datos
+        String query= "insert into modelo(nombre , carrera) values (?,?)";
+        
+        try {
+            // hacemos la conexion a ala base de datos 
+            Connection con = MySQLConnection.conectar();
+            // enviamos la query de insert a la DB
+            PreparedStatement ps = con.prepareStatement(query);
+          
+            //SETEAMOS LOS DATOS A LOS VALORES DEL INSERT
+           ps.setString(1, model.getNombre());
+           ps.setString(2, model.getCarrera());
+           // LO SUBIMOS A LA DB
+           ps.executeUpdate();
+            System.out.println("Insertado con exito");
+           // *----- FUNCIONO CORRECTAMENTE UJUUUU----*
+           
+        }catch(SQLException ex){
+            System.out.println("Error al insertar dato en DB");
+            ex.printStackTrace();
+            
+        }
+        //model.setNombre(vista.RecepcionNombre.getText());
+       
+       // ArrayList agregar = new ArrayList();
+       // agregar.add(model);
         // persistir
-        ObjectOutputStream objetoGuardar = new ObjectOutputStream(new FileOutputStream("modelo.dat"));
+        /*ObjectOutputStream objetoGuardar = new ObjectOutputStream(new FileOutputStream("modelo.dat"));
         
         //objetoGuardar.writeObject(model);
         
         objetoGuardar.writeObject(agregar);
         
-        objetoGuardar.close();
+        objetoGuardar.close();*/
        
         vista.control.mostrarEstudiante(); 
         
@@ -98,8 +123,32 @@ public class Controlador implements ActionListener{
     public void mostrarDato() throws FileNotFoundException, IOException, ClassNotFoundException{
         // persistir
        
+        String query = "SELECT * FROM modelo";
         
-        ObjectInputStream objetoMostrar = new ObjectInputStream(new FileInputStream("modelo.dat"));
+         try {
+            // hacemos la conexion a ala base de datos 
+            Connection con = MySQLConnection.conectar();
+            // enviamos la query de insert a la DB
+            PreparedStatement ps = con.prepareStatement(query);
+          
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+               
+                String nombreMostrar= rs.getString("nombre");
+                String carreraMostrar = rs.getString("carrera");
+                System.out.println("Nombre : "+nombreMostrar );
+                System.out.println("Carrera : "+carreraMostrar);
+                System.out.println("-------------------------------");
+            }
+           
+        }catch(SQLException ex){
+            System.out.println("Error al mostrar dato en DB");
+            ex.printStackTrace();
+            
+        }
+        
+       /* ObjectInputStream objetoMostrar = new ObjectInputStream(new FileInputStream("modelo.dat"));
         
         ArrayList<Modelo>mostrarEstudiantes =  (ArrayList)objetoMostrar.readObject();
        // Modelo modeloMostrar = (Modelo)objetoMostrar.readObject(); 
@@ -111,7 +160,7 @@ public class Controlador implements ActionListener{
             System.out.println("-----------------------------------------------");
         }
         
-        objetoMostrar.close();
+        objetoMostrar.close();*/
     }
     
     public String mostrarCarpeta(){
