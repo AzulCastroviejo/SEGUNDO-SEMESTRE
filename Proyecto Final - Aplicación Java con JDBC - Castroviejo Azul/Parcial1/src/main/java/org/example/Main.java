@@ -42,7 +42,7 @@ public class Main {
             System.out.println("Listar autos -> LA");
             System.out.println("Listar clientes -> LC");
             System.out.println("Actualizar autos -> AA");
-            System.out.println("Actualizar autos -> EA");
+            System.out.println("Eliminar autos -> EA");
             System.out.println("Finalizar -> F");
             accion = leer.nextLine();
 
@@ -217,9 +217,6 @@ public static void eliminarAuto()  {
         System.out.println("Auto eliminado: " + eliminado);
         System.out.println("\nLista de autos después de eliminar:");
         autoDAO.listarTodos();
-
-    // Verificar la eliminación
-
 
 }
 public static <T>void tipo(T t){
