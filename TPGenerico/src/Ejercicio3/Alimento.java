@@ -11,11 +11,13 @@ public class Alimento extends Producto{
         this.tipo = tipo;
     }
 
-    public Alimento() {
+    public Alimento(String carne, double v) {
     }
 
-    public Alimento(String nombre, Double precio) {
-        super(nombre, precio);
+
+
+    public Alimento(String tipo) {
+        this.tipo = tipo;
     }
 
     public Alimento(String nombre, Double precio, String tipo) {

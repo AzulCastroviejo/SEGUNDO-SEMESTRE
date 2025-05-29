@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 public class Controlador implements ActionListener {
     public  Menu menu;
@@ -105,7 +106,7 @@ public class Controlador implements ActionListener {
         }
      }
      
-     public void mostrarAutores(){
+     public DefaultTableModel mostrarAutores(DefaultTableModel tabla){
          
          String queryMostrar = "SELECT * FROM persona , autor where persona.idPersona = autor.idPersona ";
          
@@ -120,21 +121,23 @@ public class Controlador implements ActionListener {
 //                  autor.pseudonimo = rs.getString("pseudonimo");
 //                  String texto = ("Nombre : "+rs.getString("nombre")+ " pseudonimo : "+rs.getString("pseudonimo")+ "dni : "+rs.getInt("dni"));
 //                  mostrar.nombreAutor.setText(texto);
-                  
-                  System.out.println("dni : "+rs.getInt("dni"));
-                  System.out.println("nombre : "+rs.getString("nombre"));
-                  System.out.println("pseudonimo : "+rs.getString("pseudonimo"));
+                    Object[]fila = {rs.getInt("idPersona"), rs.getString("nombre"),rs.getInt("dni"),rs.getString("pseudonimo")}; 
+                  tabla.addRow(fila);
+//                  System.out.println("dni : "+rs.getInt("dni"));
+//                  System.out.println("nombre : "+rs.getString("nombre"));
+//                  System.out.println("pseudonimo : "+rs.getString("pseudonimo"));
 //                  mostrar.dniAutor.setText( String.valueOf(autor.dni));
 //                  mostrar.nombreAutor.setText(autor.nombre);
 //                  mostrar.pseudonimoAutor.setText(autor.pseudonimo);
 //                   mostrar.setVisible(true);
               }
+              
          }catch(SQLException ex){
               System.out.println("Error al BUSCAR dato en DB");
              ex.printStackTrace();
              
          }
-        
+        return tabla;
          
      }
 }

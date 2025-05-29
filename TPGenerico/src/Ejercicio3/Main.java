@@ -3,7 +3,7 @@ package Ejercicio3;
 public class Main {
     public static void main(String[] args) {
 
-        Almacen<Producto>almacenP = new Almacen<>();
+        Almacen<Producto>almacenP = new Almacen();
         Producto pantuflas = new Producto("pantufla" ,2500.00 );
         Producto almohada = new Producto("almohada" , 6000.50);
         Producto frazada= new Producto("frazada" , 10000.60);
