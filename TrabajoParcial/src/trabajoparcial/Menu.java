@@ -98,7 +98,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     private void MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarActionPerformed
-        control.mostrarAutores();
+        Mostrar mostrar = new Mostrar();
+        
+        mostrar.setVisible(true);
+        mostrar.mostrarTabla();
+        mostrar.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_MostrarActionPerformed
 
