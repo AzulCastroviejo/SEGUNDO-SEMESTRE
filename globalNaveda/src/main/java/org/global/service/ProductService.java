@@ -20,4 +20,6 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product buscarProducto(String nombre){return productRepository.obtenerProducto(nombre);}
+
 }

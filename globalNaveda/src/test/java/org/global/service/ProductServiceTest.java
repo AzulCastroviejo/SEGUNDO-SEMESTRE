@@ -32,6 +32,13 @@ public class ProductServiceTest   {
 
         assertEquals(product , resultado);
     }
+    @Test
+    public void testBuscar(){
+        Product product = new Product();
+        when(productRepository.obtenerProducto("PAPAS FRITAS")).thenReturn(product);
+        Product resultado = productService.buscarProducto("PAPAS FRITAS");
+        assertEquals( product,resultado ) ;
+    }
 
 
 }

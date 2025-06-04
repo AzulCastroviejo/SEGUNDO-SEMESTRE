@@ -8,4 +8,8 @@ public interface ProductRepository {
     Optional findById(Long id);
     Product save(Product product);
 
+    Product obtenerProducto(String nombre);
+
+
+
 }
